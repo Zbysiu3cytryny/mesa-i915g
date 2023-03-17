@@ -46,7 +46,7 @@ build() {
     -D gallium-va=disabled \
     -D gallium-vdpau=disabled \
     -D gallium-xa=enabled \
-    -D gallium-xvmc=disabled \
+    -D gallium-xvmc=enabled \
     -D gbm=enabled \
     -D gles1=disabled \
     -D gles2=enabled \
@@ -84,15 +84,14 @@ _install() {
 
 package_mesa-i915g() {
   depends=('libdrm' 'wayland' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf'
-           'lm_sensors' 'libglvnd'
-           'zstd' )
+           'lm_sensors' 'libglvnd' 'zstd' )
   depends+=('libsensors.so')
   optdepends=('opengl-man-pages: for the OpenGL API man pages'
               'mesa-vdpau: for accelerated video playback'
               'libva-mesa-driver: for accelerated video playback')
   provides=('mesa' 'mesa-libgl' 'opengl-driver')
-  conflicts=('mesa' 'mesa-libgl')
-  replaces=('mesa' 'mesa-libgl')
+  conflicts=('mesa' 'mesa-amber' 'mesa-libgl')
+  replaces=('mesa' 'mesa-amber' 'mesa-libgl')
 
   _install fakeinstall/usr/share/drirc.d/00-mesa-defaults.conf
   _install fakeinstall/usr/share/glvnd/egl_vendor.d/50_mesa.json
